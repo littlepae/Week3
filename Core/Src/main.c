@@ -58,7 +58,7 @@ float ADCOutputConverted = 0;
 int V25 = 760; //datasheet
 float Avg_slope = 2.5;
 float V_Ref = 3.3;
-int resolution = 4096;
+float resolution = 4096;
 
 /* USER CODE END PV */
 
@@ -310,7 +310,7 @@ void ADCPollingMethodUpdate()
 			ADCChannel[0].Data = HAL_ADC_GetValue(&hadc1);
 			HAL_ADC_Stop(&hadc1);
 
-			ADCOutputConverted = ((ADCChannel[0].Data /4096.0) * 3.3)*1000;
+			ADCOutputConverted = ((ADCChannel[0].Data /resolution) * V_Ref)*1000;
 
 //			ADCChannel[1].Data = 0;
 
@@ -324,7 +324,7 @@ void ADCPollingMethodUpdate()
 			ADCChannel[1].Data = HAL_ADC_GetValue(&hadc1);
 			HAL_ADC_Stop(&hadc1);
 
-			ADCOutputConverted = (((((ADCChannel[1].Data / 4096.0) * 3.3)*1000) - V25)/Avg_slope) + 25;
+			ADCOutputConverted = (((((ADCChannel[1].Data / resolution) * V_Ref)*1000) - V25)/Avg_slope) + 25;
 
 //			ADCChannel[0].Data = 0;
 
